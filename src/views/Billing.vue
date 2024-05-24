@@ -1,231 +1,286 @@
 <!-- 
-	This is the billing page, it uses the dashboard layout in: 
+	This is the dashboard page, it uses the dashboard layout in: 
 	"./layouts/Dashboard.vue" .
  -->
 
-<template>
-	<div>
-
-		<a-row type="flex" :gutter="24">
-
-			<!-- Billing Info Column -->
-			<a-col :span="24" :md="16">
-				<a-row type="flex" :gutter="24">
-					<a-col :span="24" :xl="12" class="mb-24">
-
-						<!-- Master Card -->
-						<CardCredit></CardCredit>
-						<!-- / Master Card -->
-
-					</a-col>
-					<a-col :span="12" :xl="6" class="mb-24" v-for="(salary, index) in salaries" :key="index">
-
-						<!-- Salary Card -->
-						<WidgetSalary
-							:value="salary.value"
-							:prefix="salary.prefix"
-							:icon="salary.icon"
-							:title="salary.title"
-							:content="salary.content"
-						></WidgetSalary>
-						<!-- / Salary Card -->
-
-					</a-col>
-					<a-col :span="24" class="mb-24">
-
-						<!-- Payment Methods Card -->
-						<CardPaymentMethods></CardPaymentMethods>
-						<!-- Payment Methods Card -->
-
-					</a-col>
-				</a-row>
-			</a-col>
-			<!-- / Billing Info Column -->
-			
-			<!-- Invoices Column -->
-			<a-col :span="24" :md="8" class="mb-24">
-
-				<!-- Invoices Card -->
-				<CardInvoices
-					:data="invoiceData"
-				></CardInvoices>
-				<!-- / Invoices Card -->
-
-			</a-col>
-			<!-- / Invoices Column -->
-
-		</a-row>
-
-		<a-row type="flex" :gutter="24">
-
-			<!-- Billing Information Column -->
-			<a-col :span="24" :md="16" class="mb-24">
-
-				<!-- Billing Information Card -->
-				<CardBillingInfo></CardBillingInfo>
-				<!-- / Billing Information Card -->
-
-			</a-col>
-			<!-- Billing Information Column -->
-
-			<!-- Your Transactions Column -->
-			<a-col :span="24" :md="8" class="mb-24">
-
-				<!-- Your Transactions Card -->
-				<CardTransactions
-					:data="transactionsData"
-				></CardTransactions>
-				<!-- / Your Transactions Card -->
-
-			</a-col>
-			<!-- / Your Transactions Column -->
-			
-		</a-row>
-
-	</div>
-</template>
+ <template>
+	<a-calendar v-model:value="value">
+	  <template #dateCellRender="{ current: value }">
+		<ul class="events">
+		  <li v-for="item in getListData(value)" :key="item.content">
+			<a-badge :status="item.type" :text="item.content" />
+		  </li>
+		</ul>
+	  </template>
+	  <template #monthCellRender="{ current: value }">
+		<div v-if="getMonthData(value)" class="notes-month">
+		  <section>{{ getMonthData(value) }}</section>
+		  <span>Backlog number</span>
+		</div>
+	  </template>
+	</a-calendar>
+  </template>
 
 <script>
 
-	import CardCredit from "../components/Cards/CardCredit"
-	import WidgetSalary from "../components/Widgets/WidgetSalary"
-	import CardPaymentMethods from "../components/Cards/CardPaymentMethods"
-	import CardInvoices from "../components/Cards/CardInvoices"
-	import CardBillingInfo from "../components/Cards/CardBillingInfo"
-	import CardTransactions from "../components/Cards/CardTransactions"
+	// Bar chart for "Active Users" card.
+	import CardBarChart from '../components/Cards/CardBarChart' ;
 
+	// Line chart for "Sales Overview" card.
+	import CardLineChart from '../components/Cards/CardLineChart' ;
 
-	// Salary cards data
-	const salaries = [
+	// Counter Widgets
+	import WidgetCounter from '../components/Widgets/WidgetCounter' ;
+
+	// "Projects" table component.
+	import CardProjectTable from '../components/Cards/CardProjectTable' ;
+
+	// Order History card component.
+	import CardOrderHistory from '../components/Cards/CardOrderHistory' ;
+
+	// Information card 1.
+	import CardInfo from '../components/Cards/CardInfo' ;
+
+	// Information card 2.
+	import CardInfo2 from '../components/Cards/CardInfo2' ;
+
+	// Counter Widgets stats
+	const stats = [
 		{
-			value: 2000,
-			prefix: "+$",
+			title: "Total Time",
+			value: 146,
+			prefix: " ",
+			suffix: "+16%",
 			icon: `
-										<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
-											<g id="bank" transform="translate(0.75 0.75)">
-												<path id="Shape" transform="translate(0.707 9.543)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-												<path id="Path" d="M10.25,0,20.5,9.19H0Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-												<path id="Path-2" data-name="Path" d="M0,.707H20.5" transform="translate(0 19.793)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
-											</g>
-										</svg>`,
-			title: "Salary",
-			content: "Belong Interactive",
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+			</svg>
+			`,
 		},
 		{
-			value: 49000,
-			prefix: "+$",
+			title: "Quality",
+			value: 87,
+			suffix: "+5%",
 			icon: `
-										<img src="images/logos/paypal-logo-2.png" alt="">`,
-			title: "Paypal",
-			content: "Freelance Payment",
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+			</svg>
+			`,
+		},
+		{
+			title: "Schedule",
+			value: 50,
+			prefix: "",
+			status: "danger",
+			suffix: "-20%",
+			icon: `
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+			</svg>
+			`,
+		},
+		{
+			title: "Total Tasks",
+			value: 279,
+			prefix: "",
+			suffix: "+10%",
+			icon: `
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M7.5 5.25a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0 1 12 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 0 1 7.5 5.455V5.25Zm7.5 0v.09a49.488 49.488 0 0 0-6 0v-.09a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5Zm-3 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+			<path d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
+			</svg>
+			`,
 		},
 	] ;
 
-	// "Invoices" list data.
-	const invoiceData = [
+	// "Projects" table list of columns and their properties.
+	const tableColumns = [
 		{
-			title: "March, 01, 2021",
-			code: "#MS-415646",
-			amount: "180",
+			title: 'KPI NAME',
+			dataIndex: 'company',
+			scopedSlots: { customRender: 'company' },
+			width: 300,
 		},
 		{
-			title: "February, 12, 2021",
-			code: "#RV-126749",
-			amount: "250",
+			title: 'TOTAL TASKS',
+			dataIndex: 'members',
+			scopedSlots: { customRender: 'members' },
 		},
 		{
-			title: "April, 05, 2020",
-			code: "#FB-212562",
-			amount: "550",
+			title: 'TASK COMPLETED',
+			dataIndex: 'budget',
+			class: 'font-bold text-muted text-sm',
 		},
 		{
-			title: "June, 25, 2019",
-			code: "#QW-103578",
-			amount: "400",
+			title: 'POINT',
+			scopedSlots: { customRender: 'completion' },
+			dataIndex: 'completion',
 		},
-		{
-			title: "March, 03, 2019",
-			code: "#AR-803481",
-			amount: "700",
-		},
-	] ;
+	];
 
-	// "Your Transactions" list data.
-	const transactionsData = [
+	// "Projects" table list of rows and their properties.
+	const tableData = [
 		{
-			period: "NEWEST",
+			key: '1',
+			company: {
+				name: 'Teaching Term 20232',
+				logo: 'images/logos/hust-logo.png',
+			},
+			members: '280',
+			budget: '224',
+			completion: {
+				label: '92',
+				status: 'success',
+				value: 80,
+			},
 		},
 		{
-			title: "Netflix",
-			datetime: "27 March 2021, at 12:30 PM",
-			amount: "2,500",
-			type: -1,// 0 is for pending, 1 is for deposit, -1 is for withdrawal.
-			status: 'danger',
+			key: '2',
+			company: {
+				name: 'Scientific Research',
+				logo: 'images/logos/Google_Scholar_logo.png',
+			},
+			members: '98',
+			budget: '60',
+			completion: 72,
 		},
 		{
-			title: "Apple",
-			datetime: "27 March 2021, at 04:30 AM",
-			amount: "2,000",
-			type: 1,
-			status: 'success',
+			key: '3',
+			company: {
+				name: 'Family',
+				logo: 'images/logos/family.jpg',
+			},
+			members: '150',
+			budget: '50',
+			completion: {
+				label: '40',
+				status: 'exception',
+				value: 40,
+			},
 		},
-		{
-			period: "YESTERDAY",
-		},
-		{
-			title: "Stripe",
-			datetime: "26 March 2021, at 12:30 AM",
-			amount: "750",
-			type: 1,
-			status: 'success',
-		},
-		{
-			title: "HubSpot",
-			datetime: "26 March 2021, at 11:30 AM",
-			amount: "1,050",
-			type: 1,
-			status: 'success',
-		},
-		{
-			title: "Creative Tim",
-			datetime: "26 March 2021, at 07:30 AM",
-			amount: "2,400",
-			type: 1,
-			status: 'success',
-		},
-		{
-			title: "Webflow",
-			datetime: "26 March 2021, at 04:00 AM",
-			amount: "Pending",
-			type: 0,
-			status: 'warning',
-		},
-	] ;
+	];
 
 	export default ({
+		setup() {
+    const value = ref();
+    const getListData = value => {
+      let listData;
+      switch (value.date()) {
+        case 8:
+          listData = [
+            {
+              type: 'warning',
+              content: 'This is warning event.',
+            },
+            {
+              type: 'success',
+              content: 'This is usual event.',
+            },
+          ];
+          break;
+        case 10:
+          listData = [
+            {
+              type: 'warning',
+              content: 'This is warning event.',
+            },
+            {
+              type: 'success',
+              content: 'This is usual event.',
+            },
+            {
+              type: 'error',
+              content: 'This is error event.',
+            },
+          ];
+          break;
+        case 15:
+          listData = [
+            {
+              type: 'warning',
+              content: 'This is warning event',
+            },
+            {
+              type: 'success',
+              content: 'This is very long usual event。。....',
+            },
+            {
+              type: 'error',
+              content: 'This is error event 1.',
+            },
+            {
+              type: 'error',
+              content: 'This is error event 2.',
+            },
+            {
+              type: 'error',
+              content: 'This is error event 3.',
+            },
+            {
+              type: 'error',
+              content: 'This is error event 4.',
+            },
+          ];
+          break;
+        default:
+      }
+      return listData || [];
+    };
+    const getMonthData = value => {
+      if (value.month() === 8) {
+        return 1394;
+      }
+    };
+    return {
+      value,
+      getListData,
+      getMonthData,
+    };
+  },
 		components: {
-			CardCredit,
-			WidgetSalary,
-			CardPaymentMethods,
-			CardInvoices,
-			CardBillingInfo,
-			CardTransactions,
+			CardBarChart,
+			CardLineChart,
+			WidgetCounter,
+			CardProjectTable,
+			CardOrderHistory,
+			CardInfo,
+			CardInfo2,
 		},
 		data() {
 			return {
-				// Salary cards data
-				salaries,
 
-				// Associating "Invoices" list data with its corresponding property.
-				invoiceData,
-				
-				// Associating "Your Transactions" list data with its corresponding property.
-				transactionsData,
+				// Associating table data with its corresponding property.
+				tableData,
+
+				// Associating table columns with its corresponding property.
+				tableColumns,
+
+				// Counter Widgets Stats
+				stats,
 			}
 		},
 	})
 
 </script>
 
-<style lang="scss">
+<style scoped>
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.events .ant-badge-status {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+.notes-month section {
+  font-size: 28px;
+}
 </style>

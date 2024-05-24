@@ -24,13 +24,15 @@
 
 		<!-- Charts -->
 		<a-row :gutter="24" type="flex" align="stretch">
+			<!-- Timeline -->
 			<a-col :span="24" :lg="10" class="mb-24">
 
-				<!-- Active Users Card -->
-				<CardBarChart></CardBarChart>
-				<!-- Active Users Card -->
+			<!-- Orders History Timeline Card -->
+			<CardOrderHistory></CardOrderHistory>
+			<!-- / Orders History Timeline Card -->
 
 			</a-col>
+			<!-- / Timeline -->
 			<a-col :span="24" :lg="14" class="mb-24">
 				
 				<!-- Sales Overview Card -->
@@ -43,49 +45,23 @@
 
 		<!-- Table & Timeline -->
 		<a-row :gutter="24" type="flex" align="stretch">
-			<!-- Table -->
-			<a-col :span="24" :lg="16" class="mb-24">
-				
-				<!-- Projects Table Card -->
-				<CardProjectTable
-					:data="tableData"
-					:columns="tableColumns"
-				></CardProjectTable>
-				<!-- / Projects Table Card -->
-				
-			</a-col>
-			<!-- / Table -->
+		<!-- Table -->
+		<a-col :span="24" :lg="24" class="mb-24">
+			
+			<!-- Projects Table Card -->
+			<CardProjectTable
+			:data="tableData"
+			:columns="tableColumns"
+			class="full-width-table"
+			></CardProjectTable>
+			<!-- / Projects Table Card -->
+			
+		</a-col>
+		<!-- / Table -->
 
-			<!-- Timeline -->
-			<a-col :span="24" :lg="8" class="mb-24">
-
-				<!-- Orders History Timeline Card -->
-				<CardOrderHistory></CardOrderHistory>
-				<!-- / Orders History Timeline Card -->
-
-			</a-col>
-			<!-- / Timeline -->
 		</a-row>
+
 		<!-- / Table & Timeline -->
-
-		<!-- Cards -->
-		<a-row :gutter="24" type="flex" align="stretch">
-			<a-col :span="24" :xl="14" class="mb-24">
-
-				<!-- Information Card 1 -->
-				<CardInfo></CardInfo>
-				<!-- / Information Card 1 -->
-
-			</a-col>
-			<a-col :span="24" :xl="10" class="mb-24">
-
-				<!-- Information Card 2 -->
-				<CardInfo2></CardInfo2>
-				<!-- / Information Card 2 -->
-
-			</a-col>
-		</a-row>
-		<!-- / Cards -->
 
 	</div>
 </template>
@@ -116,72 +92,72 @@
 	// Counter Widgets stats
 	const stats = [
 		{
-			title: "Today’s Sales",
-			value: 53000,
-			prefix: "$",
-			suffix: "+30%",
+			title: "Total Time",
+			value: 146,
+			prefix: " ",
+			suffix: "+16%",
 			icon: `
-						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M8.43338 7.41784C8.58818 7.31464 8.77939 7.2224 9 7.15101L9.00001 8.84899C8.77939 8.7776 8.58818 8.68536 8.43338 8.58216C8.06927 8.33942 8 8.1139 8 8C8 7.8861 8.06927 7.66058 8.43338 7.41784Z" fill="#111827"/>
-							<path d="M11 12.849L11 11.151C11.2206 11.2224 11.4118 11.3146 11.5666 11.4178C11.9308 11.6606 12 11.8861 12 12C12 12.1139 11.9308 12.3394 11.5666 12.5822C11.4118 12.6854 11.2206 12.7776 11 12.849Z" fill="#111827"/>
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 5C11 4.44772 10.5523 4 10 4C9.44772 4 9 4.44772 9 5V5.09199C8.3784 5.20873 7.80348 5.43407 7.32398 5.75374C6.6023 6.23485 6 7.00933 6 8C6 8.99067 6.6023 9.76515 7.32398 10.2463C7.80348 10.5659 8.37841 10.7913 9.00001 10.908L9.00002 12.8492C8.60902 12.7223 8.31917 12.5319 8.15667 12.3446C7.79471 11.9275 7.16313 11.8827 6.74599 12.2447C6.32885 12.6067 6.28411 13.2382 6.64607 13.6554C7.20855 14.3036 8.05956 14.7308 9 14.9076L9 15C8.99999 15.5523 9.44769 16 9.99998 16C10.5523 16 11 15.5523 11 15L11 14.908C11.6216 14.7913 12.1965 14.5659 12.676 14.2463C13.3977 13.7651 14 12.9907 14 12C14 11.0093 13.3977 10.2348 12.676 9.75373C12.1965 9.43407 11.6216 9.20873 11 9.09199L11 7.15075C11.391 7.27771 11.6808 7.4681 11.8434 7.65538C12.2053 8.07252 12.8369 8.11726 13.254 7.7553C13.6712 7.39335 13.7159 6.76176 13.354 6.34462C12.7915 5.69637 11.9405 5.26915 11 5.09236V5Z" fill="#111827"/>
-						</svg>`,
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+			</svg>
+			`,
 		},
 		{
-			title: "Today’s Users",
-			value: 3200,
-			suffix: "+20%",
+			title: "Quality",
+			value: 87,
+			suffix: "+5%",
 			icon: `
-						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M9 6C9 7.65685 7.65685 9 6 9C4.34315 9 3 7.65685 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6Z" fill="#111827"/>
-							<path d="M17 6C17 7.65685 15.6569 9 14 9C12.3431 9 11 7.65685 11 6C11 4.34315 12.3431 3 14 3C15.6569 3 17 4.34315 17 6Z" fill="#111827"/>
-							<path d="M12.9291 17C12.9758 16.6734 13 16.3395 13 16C13 14.3648 12.4393 12.8606 11.4998 11.6691C12.2352 11.2435 13.0892 11 14 11C16.7614 11 19 13.2386 19 16V17H12.9291Z" fill="#111827"/>
-							<path d="M6 11C8.76142 11 11 13.2386 11 16V17H1V16C1 13.2386 3.23858 11 6 11Z" fill="#111827"/>
-						</svg>`,
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+			</svg>
+			`,
 		},
 		{
-			title: "New Clients",
-			value: 1200,
-			prefix: "+",
+			title: "Schedule",
+			value: 50,
+			prefix: "",
 			status: "danger",
 			suffix: "-20%",
 			icon: `
-						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M3.17157 5.17157C4.73367 3.60948 7.26633 3.60948 8.82843 5.17157L10 6.34315L11.1716 5.17157C12.7337 3.60948 15.2663 3.60948 16.8284 5.17157C18.3905 6.73367 18.3905 9.26633 16.8284 10.8284L10 17.6569L3.17157 10.8284C1.60948 9.26633 1.60948 6.73367 3.17157 5.17157Z" fill="#111827"/>
-						</svg>`,
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+			</svg>
+			`,
 		},
 		{
-			title: "New Orders",
-			value: 13200,
-			prefix: "$",
+			title: "Total Tasks",
+			value: 279,
+			prefix: "",
 			suffix: "+10%",
 			icon: `
-						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C7.79086 2 6 3.79086 6 6V7H5C4.49046 7 4.06239 7.38314 4.00612 7.88957L3.00612 16.8896C2.97471 17.1723 3.06518 17.455 3.25488 17.6669C3.44458 17.8789 3.71556 18 4 18H16C16.2844 18 16.5554 17.8789 16.7451 17.6669C16.9348 17.455 17.0253 17.1723 16.9939 16.8896L15.9939 7.88957C15.9376 7.38314 15.5096 7 15 7H14V6C14 3.79086 12.2091 2 10 2ZM12 7V6C12 4.89543 11.1046 4 10 4C8.89543 4 8 4.89543 8 6V7H12ZM6 10C6 9.44772 6.44772 9 7 9C7.55228 9 8 9.44772 8 10C8 10.5523 7.55228 11 7 11C6.44772 11 6 10.5523 6 10ZM13 9C12.4477 9 12 9.44772 12 10C12 10.5523 12.4477 11 13 11C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9Z" fill="#111827"/>
-						</svg>`,
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M7.5 5.25a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0 1 12 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 0 1 7.5 5.455V5.25Zm7.5 0v.09a49.488 49.488 0 0 0-6 0v-.09a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5Zm-3 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+			<path d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
+			</svg>
+			`,
 		},
 	] ;
 
 	// "Projects" table list of columns and their properties.
 	const tableColumns = [
 		{
-			title: 'COMPANIES',
+			title: 'KPI NAME',
 			dataIndex: 'company',
 			scopedSlots: { customRender: 'company' },
 			width: 300,
 		},
 		{
-			title: 'MEMBERS',
+			title: 'TOTAL TASKS',
 			dataIndex: 'members',
 			scopedSlots: { customRender: 'members' },
 		},
 		{
-			title: 'BUDGET',
+			title: 'TASK COMPLETED',
 			dataIndex: 'budget',
 			class: 'font-bold text-muted text-sm',
 		},
 		{
-			title: 'COMPLETION',
+			title: 'POINT',
 			scopedSlots: { customRender: 'completion' },
 			dataIndex: 'completion',
 		},
@@ -192,73 +168,39 @@
 		{
 			key: '1',
 			company: {
-				name: 'Soft UI Shopify Version',
-				logo: 'images/logos/logo-shopify.svg',
+				name: 'Teaching Term 20232',
+				logo: 'images/logos/hust-logo.png',
 			},
-			members: [ "images/face-1.jpg", "images/face-4.jpg", "images/face-2.jpg", "images/face-3.jpg", ],
-			budget: '$14,000',
-			completion: 60,
+			members: '280',
+			budget: '224',
+			completion: {
+				label: '92',
+				status: 'success',
+				value: 80,
+			},
 		},
 		{
 			key: '2',
 			company: {
-				name: 'Progress Track',
-				logo: 'images/logos/logo-atlassian.svg',
+				name: 'Scientific Research',
+				logo: 'images/logos/Google_Scholar_logo.png',
 			},
-			members: [ "images/face-4.jpg", "images/face-3.jpg", ],
-			budget: '$3,000',
-			completion: 10,
+			members: '98',
+			budget: '60',
+			completion: 72,
 		},
 		{
 			key: '3',
 			company: {
-				name: 'Fix Platform Errors',
-				logo: 'images/logos/logo-slack.svg',
+				name: 'Family',
+				logo: 'images/logos/family.jpg',
 			},
-			members: [ "images/face-1.jpg", "images/face-2.jpg", "images/face-3.jpg", ],
-			budget: 'Not Set',
+			members: '150',
+			budget: '50',
 			completion: {
-				label: '100',
-				status: 'success',
-				value: 100,
-			},
-		},
-		{
-			key: '4',
-			company: {
-				name: 'Launch new Mobile App',
-				logo: 'images/logos/logo-spotify.svg',
-			},
-			members: [ "images/face-1.jpg", "images/face-2.jpg", ],
-			budget: '$20,600',
-			completion: {
-				label: '100',
-				status: 'success',
-				value: 100,
-			},
-		},
-		{
-			key: '5',
-			company: {
-				name: 'Add the New Landing Page',
-				logo: 'images/logos/logo-jira.svg',
-			},
-			members: [ "images/face-1.jpg", "images/face-4.jpg", "images/face-2.jpg", "images/face-3.jpg", ],
-			budget: '$4,000',
-			completion: 80,
-		},
-		{
-			key: '6',
-			company: {
-				name: 'Redesign Online Store',
-				logo: 'images/logos/logo-invision.svg',
-			},
-			members: [ "images/face-1.jpg", "images/face-4.jpg", "images/face-3.jpg", ],
-			budget: '$2,000',
-			completion: {
-				label: 'Cancelled',
+				label: '40',
 				status: 'exception',
-				value: 100,
+				value: 40,
 			},
 		},
 	];

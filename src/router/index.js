@@ -31,13 +31,13 @@ let routes = [
 	},
 	{
 		path: '/tables',
-		name: 'Tables',
+		name: 'KPI',
 		layout: "dashboard",
 		component: () => import('../views/Tables.vue'),
 	},
 	{
 		path: '/billing',
-		name: 'Billing',
+		name: 'Calendar',
 		layout: "dashboard",
 		component: () => import('../views/Billing.vue'),
 	},

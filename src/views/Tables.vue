@@ -1,298 +1,215 @@
 <!-- 
-	This is the tables page, it uses the dashboard layout in: 
+	This is the dashboard page, it uses the dashboard layout in: 
 	"./layouts/Dashboard.vue" .
  -->
 
-<template>
+ <template>
 	<div>
+		<!-- Counter Widgets -->
+		<a-row :gutter="24">
+			<a-col :span="24" :lg="12" :xl="3" class="mb-24" >
+				<!-- Widget 1 Card -->
+				<a-button type="primary" href="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/documentation" block target="_blank">
+					<svg v-show="! timelineReverse" width="16" height="16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+					<path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+					</svg>
+	
+					ADD KPI
+				</a-button>
+				<!-- / Widget 1 Card -->
+			</a-col>
+			<a-col :span="24" :lg="12" :xl="3" class="mb-24" >
+				<!-- Widget 1 Card -->
+				<a-button type="primary" href="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/documentation" block target="_blank">
+					<svg v-show="! timelineReverse" width="16" height="16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+					<path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06l-3.22-3.22V16.5a.75.75 0 0 1-1.5 0V4.81L8.03 8.03a.75.75 0 0 1-1.06-1.06l4.5-4.5ZM3 15.75a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+					</svg>
 
-		<!-- Authors Table -->
-		<a-row :gutter="24" type="flex">
+					IMPORT KPI
+				</a-button>
+				<!-- / Widget 1 Card -->
+			</a-col>
+		</a-row>
+		<!-- / Counter Widgets -->
+		
+		<!-- Charts -->
+		<a-row :gutter="24" type="flex" align="stretch">
+			<a-col :span="24" :lg="10" class="mb-24">
 
-			<!-- Authors Table Column -->
-			<a-col :span="24" class="mb-24">
-
-				<!-- Authors Table Card -->
-				<CardAuthorTable
-					:data="table1Data"
-					:columns="table1Columns"
-				></CardAuthorTable>
-				<!-- / Authors Table Card -->
+				<!-- Active Users Card -->
+				<CardBarChart></CardBarChart>
+				<!-- Active Users Card -->
 
 			</a-col>
-			<!-- / Authors Table Column -->
-
-		</a-row>
-		<!-- / Authors Table -->
-
-		<!-- Projects Table -->
-		<a-row :gutter="24" type="flex">
-
-			<!-- Projects Table Column -->
-			<a-col :span="24" class="mb-24">
-
-				<!-- Projects Table Column -->
-				<CardProjectTable2
-					:data="table2Data"
-					:columns="table2Columns"
-				></CardProjectTable2>
-				<!-- / Projects Table Column -->
+			<a-col :span="24" :lg="14" class="mb-24">
+				
+				<!-- Sales Overview Card -->
+				<CardLineChart></CardLineChart>
+				<!-- / Sales Overview Card -->
 
 			</a-col>
-			<!-- / Projects Table Column -->
+		</a-row>
+		<!-- / Charts -->
+
+		<!-- Table & Timeline -->
+		<a-row :gutter="24" type="flex" align="stretch">
+		<!-- Table -->
+		<a-col :span="24" :lg="24" class="mb-24">
+			
+			<!-- Projects Table Card -->
+			<CardProjectTable
+			:data="tableData"
+			:columns="tableColumns"
+			class="full-width-table"
+			></CardProjectTable>
+			<!-- / Projects Table Card -->
+			
+		</a-col>
+		<!-- / Table -->
 
 		</a-row>
-		<!-- / Projects Table -->
+
+		<!-- / Table & Timeline -->
 
 	</div>
 </template>
 
 <script>
 
-	// "Authors" table component.
-	import CardAuthorTable from '../components/Cards/CardAuthorTable' ;
+	// Bar chart for "Active Users" card.
+	import CardBarChart from '../components/Cards/CardBarChart' ;
+
+	// Line chart for "Sales Overview" card.
+	import CardLineChart from '../components/Cards/CardLineChart' ;
+
+	// Counter Widgets
+	import WidgetCounter from '../components/Widgets/WidgetCounter' ;
 
 	// "Projects" table component.
-	import CardProjectTable2 from '../components/Cards/CardProjectTable2' ;
-	
-	// "Authors" table list of columns and their properties.
-	const table1Columns = [
-		{
-			title: 'AUTHOR',
-			dataIndex: 'author',
-			scopedSlots: { customRender: 'author' },
-		},
-		{
-			title: 'FUNCTION',
-			dataIndex: 'func',
-			scopedSlots: { customRender: 'func' },
-		},
-		{
-			title: 'STATUS',
-			dataIndex: 'status',
-			scopedSlots: { customRender: 'status' },
-		},
-		{
-			title: 'EMPLOYED',
-			dataIndex: 'employed',
-			class: 'text-muted',
-		},
-		{
-			title: '',
-			scopedSlots: { customRender: 'editBtn' },
-			width: 50,
-		},
-	];
+	import CardProjectTable from '../components/Cards/CardProjectTable' ;
 
-	// "Authors" table list of rows and their properties.
-	const table1Data = [
+	// Order History card component.
+	import CardOrderHistory from '../components/Cards/CardOrderHistory' ;
+
+	// Information card 1.
+	import CardInfo from '../components/Cards/CardInfo' ;
+
+	// Information card 2.
+	import CardInfo2 from '../components/Cards/CardInfo2' ;
+
+	// Counter Widgets stats
+	const stats = [
 		{
-			key: '1',
-			author: {
-				avatar: 'images/face-2.jpg',
-				name: 'Michael John',
-				email: 'michael@mail.com',
-			},
-			func: {
-				job: 'Manager',
-				department: 'Organization',
-			},
-			status: 1,
-			employed: '23/04/18',
+			title: "Total Time",
+			value: 146,
+			prefix: " ",
+			suffix: "+16%",
+			icon: `
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+			</svg>
+			`,
 		},
 		{
-			key: '2',
-			author: {
-				avatar: 'images/face-3.jpg',
-				name: 'Alexa Liras',
-				email: 'alexa@mail.com',
-			},
-			func: {
-				job: 'Programator',
-				department: 'Developer',
-			},
-			status: 0,
-			employed: '23/12/20',
+			title: "Quality",
+			value: 87,
+			suffix: "+5%",
+			icon: `
+			<svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+			<path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+			</svg>
+			`,
 		},
-		{
-			key: '3',
-			author: {
-				avatar: 'images/face-1.jpg',
-				name: 'Laure Perrier',
-				email: 'laure@mail.com',
-			},
-			func: {
-				job: 'Executive',
-				department: 'Projects',
-			},
-			status: 1,
-			employed: '13/04/19',
-		},
-		{
-			key: '4',
-			author: {
-				avatar: 'images/face-4.jpg',
-				name: 'Miriam Eric',
-				email: 'miriam@mail.com',
-			},
-			func: {
-				job: 'Marketing',
-				department: 'Organization',
-			},
-			status: 1,
-			employed: '03/04/21',
-		},
-		{
-			key: '5',
-			author: {
-				avatar: 'images/face-5.jpeg',
-				name: 'Richard Gran',
-				email: 'richard@mail.com',
-			},
-			func: {
-				job: 'Manager',
-				department: 'Organization',
-			},
-			status: 0,
-			employed: '23/03/20',
-		},
-		{
-			key: '6',
-			author: {
-				avatar: 'images/face-6.jpeg',
-				name: 'John Levi',
-				email: 'john@mail.com',
-			},
-			func: {
-				job: 'Tester',
-				department: 'Developer',
-			},
-			status: 0,
-			employed: '14/04/17',
-		},
-	];
-	
+	] ;
+
 	// "Projects" table list of columns and their properties.
-	const table2Columns = [
+	const tableColumns = [
 		{
-			title: 'COMPANIES',
+			title: 'KPI NAME',
 			dataIndex: 'company',
 			scopedSlots: { customRender: 'company' },
 			width: 300,
 		},
 		{
-			title: 'BUDGET',
+			title: 'TOTAL TASKS',
+			dataIndex: 'members',
+			scopedSlots: { customRender: 'members' },
+		},
+		{
+			title: 'TASK COMPLETED',
 			dataIndex: 'budget',
-			class: 'font-semibold text-muted',
+			class: 'font-bold text-muted text-sm',
 		},
 		{
-			title: 'STATUS',
-			dataIndex: 'status',
-			class: 'font-semibold text-muted text-sm',
-		},
-		{
-			title: 'COMPLETION',
+			title: 'POINT',
 			scopedSlots: { customRender: 'completion' },
 			dataIndex: 'completion',
-		},
-		{
-			title: '',
-			scopedSlots: { customRender: 'editBtn' },
-			width: 50,
 		},
 	];
 
 	// "Projects" table list of rows and their properties.
-	const table2Data = [
+	const tableData = [
 		{
 			key: '1',
 			company: {
-				name: 'Spotify Version',
-				logo: 'images/logos/logo-spotify.svg',
+				name: 'Teaching Term 20232',
+				logo: 'images/logos/hust-logo.png',
 			},
-			status: "working",
-			budget: '$14,000',
-			completion: 60,
+			members: '280',
+			budget: '224',
+			completion: {
+				label: '92',
+				status: 'success',
+				value: 80,
+			},
 		},
 		{
 			key: '2',
 			company: {
-				name: 'Progress Track',
-				logo: 'images/logos/logo-atlassian.svg',
+				name: 'Scientific Research',
+				logo: 'images/logos/Google_Scholar_logo.png',
 			},
-			status: "working",
-			budget: '$3,000',
-			completion: 10,
+			members: '98',
+			budget: '60',
+			completion: 72,
 		},
 		{
 			key: '3',
 			company: {
-				name: 'Jira Platform Errors',
-				logo: 'images/logos/logo-slack.svg',
+				name: 'Family',
+				logo: 'images/logos/family.jpg',
 			},
-			status: "done",
-			budget: 'Not Set',
+			members: '150',
+			budget: '50',
 			completion: {
-				status: 'success',
-				value: 100,
-			},
-		},
-		{
-			key: '4',
-			company: {
-				name: 'Launch new Mobile App',
-				logo: 'images/logos/logo-spotify.svg',
-			},
-			status: "canceled",
-			budget: '$20,600',
-			completion: {
+				label: '40',
 				status: 'exception',
-				value: 50,
-			},
-		},
-		{
-			key: '5',
-			company: {
-				name: 'Web Dev',
-				logo: 'images/logos/logo-webdev.svg',
-			},
-			status: "working",
-			budget: '$4,000',
-			completion: 80,
-		},
-		{
-			key: '6',
-			company: {
-				name: 'Redesign Online Store',
-				logo: 'images/logos/logo-invision.svg',
-			},
-			status: "canceled",
-			budget: '$2,000',
-			completion: {
-				status: 'exception',
-				value: 0,
+				value: 40,
 			},
 		},
 	];
 
 	export default ({
 		components: {
-			CardAuthorTable,
-			CardProjectTable2,
+			CardBarChart,
+			CardLineChart,
+			WidgetCounter,
+			CardProjectTable,
+			CardOrderHistory,
+			CardInfo,
+			CardInfo2,
 		},
 		data() {
 			return {
-				// Associating "Authors" table data with its corresponding property.
-				table1Data: table1Data,
 
-				// Associating "Authors" table columns with its corresponding property.
-				table1Columns: table1Columns,
+				// Associating table data with its corresponding property.
+				tableData,
 
-				// Associating "Projects" table data with its corresponding property.
-				table2Data: table2Data,
+				// Associating table columns with its corresponding property.
+				tableColumns,
 
-				// Associating "Projects" table columns with its corresponding property.
-				table2Columns: table2Columns,
+				// Counter Widgets Stats
+				stats,
 			}
 		},
 	})
