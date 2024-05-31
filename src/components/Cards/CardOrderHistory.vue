@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { Modal as AModal, Button as AButton, Card as ACard, Timeline as ATimeline, TimelineItem as ATimelineItem } from 'ant-design-vue';
+import { Modal as AModal, Button as AButton, Card as ACard, Timeline as ATimeline, TimelineItem } from 'ant-design-vue';
 import AddTask from '../Popup/AddTask.vue';
 
 export default {
@@ -60,7 +60,7 @@ export default {
 		AButton,
 		ACard,
 		ATimeline,
-		ATimelineItem,
+		TimelineItem,
 		AddTask,
 	},
 	data() {
