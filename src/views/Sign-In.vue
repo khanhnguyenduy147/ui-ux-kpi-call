@@ -39,9 +39,11 @@
     					<a-switch v-model="rememberMe" /> Remember Me
 					</a-form-item>
 					<a-form-item>
+						<router-link to="/dashboard">
 						<a-button type="primary" block html-type="submit" class="login-form-button">
 							SIGN IN
 						</a-button>
+						</router-link>
 					</a-form-item>
 				</a-form>
 				<!-- / Sign In Form -->

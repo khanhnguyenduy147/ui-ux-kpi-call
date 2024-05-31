@@ -44,7 +44,7 @@
 				barChartData: {
 					labels: ["Sun", "Mon", "Tues", "Wedn", "Thur", "Fri", "Sat"],
 					datasets: [{
-						label: "Sales",
+						label: "Tasks",
 						backgroundColor: '#fff',
 						borderWidth: 0,
 						borderSkipped: false,

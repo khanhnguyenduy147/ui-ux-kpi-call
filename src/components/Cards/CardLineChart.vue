@@ -31,7 +31,7 @@
 				lineChartData: {
 					labels: ["0", "5", "10", "15", "20", "25", "31"],
 					datasets: [{
-						label: "Teach",
+						label: "Teach ponit",
 						tension: 0.4,
 						borderWidth: 0,
 						pointRadius: 0,
@@ -42,7 +42,7 @@
 
 					},
 					{
-						label: "Research",
+						label: "Research point",
 						tension: 0.4,
 						borderWidth: 0,
 						pointRadius: 0,
@@ -53,7 +53,7 @@
 
 					},
 					{
-						label: "Websites",
+						label: "Family point",
 						tension: 0.4,
 						borderWidth: 0,
 						pointRadius: 0,
