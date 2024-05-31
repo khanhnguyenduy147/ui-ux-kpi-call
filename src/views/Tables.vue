@@ -9,7 +9,7 @@
 		<a-row :gutter="24">
 			<a-col :span="24" :lg="12" :xl="3" class="mb-24" >
 				<!-- Widget 1 Card -->
-				<a-button type="primary" href="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/documentation" block target="_blank">
+				<a-button type="primary" @click="showFormAddKPI=true" block target="_blank">
 					<svg v-show="! timelineReverse" width="16" height="16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
 					<path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
 					</svg>
@@ -20,7 +20,7 @@
 			</a-col>
 			<a-col :span="24" :lg="12" :xl="3" class="mb-24" >
 				<!-- Widget 1 Card -->
-				<a-button type="primary" href="https://demos.creative-tim.com/muse-vue-ant-design-dashboard/documentation" block target="_blank">
+				<a-button type="primary" @click="showFormImportKPI = true" block target="_blank">
 					<svg v-show="! timelineReverse" width="16" height="16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
 					<path fill-rule="evenodd" d="M11.47 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06l-3.22-3.22V16.5a.75.75 0 0 1-1.5 0V4.81L8.03 8.03a.75.75 0 0 1-1.06-1.06l4.5-4.5ZM3 15.75a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
 					</svg>
@@ -51,6 +51,25 @@
 		</a-row>
 		<!-- / Charts -->
 
+		<!-- Form Add KPI -->
+		<a-modal
+		v-model:visible="showFormAddKPI" fill="currentColor"
+		title="Add KPI"
+		@ok="handleOk"
+		@cancel="handleCancel"
+		>
+		<FormAddKPI/>
+		</a-modal>
+
+		<!-- Form Import KPI -->
+		<a-modal
+		v-model:visible="showFormImportKPI" fill="currentColor"
+		title="Import KPI"
+		@ok="handleOk"
+		@cancel="handleCancel"
+		>
+		<FormImportKPI/>
+		</a-modal>
 		<!-- Table & Timeline -->
 		<a-row :gutter="24" type="flex" align="stretch">
 		<!-- Table -->
@@ -96,6 +115,12 @@
 
 	// Information card 2.
 	import CardInfo2 from '../components/Cards/CardInfo2' ;
+
+	// Popup add KPI.
+	import FormAddKPI from '../components/Popup/AddKPI.vue' ;
+
+	// Popup Import KPI.
+	import FormImportKPI from '../components/Popup/ImportKPI.vue' ;
 
 	// Counter Widgets stats
 	const stats = [
@@ -198,10 +223,24 @@
 			CardOrderHistory,
 			CardInfo,
 			CardInfo2,
+			FormAddKPI,
+			FormImportKPI
+
 		},
+		methods: {
+		handleOk() {
+		this.showFormAddKPI = false;
+		this.showFormImportKPI = false;
+		},
+		handleCancel() {
+		this.showFormAddKPI = false;
+		this.showFormImportKPI = false;
+		},
+	},
 		data() {
 			return {
-
+				showFormImportKPI: false,
+				showFormAddKPI: false,
 				// Associating table data with its corresponding property.
 				tableData,
 
